@@ -1,17 +1,11 @@
 import { useState } from "react";
 
 const InputForm = () => {
-	const [formData, setFormData] = useState({
-		name: "",
-		email: "",
-	});
+	const [url, setUrl] = useState("");
 
 	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setFormData({
-			...formData,
-			[name]: value,
-		});
+		const url = e.target.value;
+		setUrl(url);
 	};
 
 	const handleSubmit = async (e) => {
@@ -23,12 +17,11 @@ const InputForm = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(formData),
+				body: JSON.stringify({ url }),
 			});
 
 			if (response.ok) {
 				console.log("Data successfully submitted!");
-				console.log(response);
 			} else {
 				console.error("Error submitting data");
 			}
@@ -40,20 +33,11 @@ const InputForm = () => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<div>
-				<label>Name: </label>
+				<label>URL: </label>
 				<input
 					type="text"
 					name="name"
-					value={formData.name}
-					onChange={handleChange}
-				/>
-			</div>
-			<div>
-				<label>Email: </label>
-				<input
-					type="email"
-					name="email"
-					value={formData.email}
+					value={url}
 					onChange={handleChange}
 				/>
 			</div>
