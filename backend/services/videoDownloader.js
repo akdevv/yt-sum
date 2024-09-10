@@ -1,10 +1,8 @@
 import youtubedl from "youtube-dl-exec";
 
-async function downloadAudio(url, outputPath) {
+const downloadAudio = async (url, outputPath) => {
 	try {
-		console.log("Starting audio download...");
-
-		const download = youtubedl(url, {
+		await youtubedl(url, {
 			output: outputPath,
 			extractAudio: true,
 			audioFormat: "mp3",
@@ -15,18 +13,16 @@ async function downloadAudio(url, outputPath) {
 			preferFreeFormats: true,
 			addHeader: ["referer:youtube.com", "user-agent:googlebot"],
 		});
-
-		await download.then(() => {
-			console.log("Audio download completed successfully!");
-			console.log(`Audio saved to: ${outputPath}`);
-		});
-	} catch (error) {
-		console.error("An error occurred:", error.message);
+	} catch (err) {
+		console.error("Unable to download audio:", err.message);
 	}
-}
+};
 
 // Usage
-const videoUrl = "https://www.youtube.com/watch?v=OBvZvENxIEg";
-const outputPath = "./temp/output.mp3";
+// const videoUrl = "https://www.youtube.com/watch?v=OBvZvENxIEg";
+// const outputPath = "./temp/output.mp3";
 
-downloadAudio(videoUrl, outputPath);
+// const path = await downloadAudio(videoUrl, outputPath);
+// console.log("path: ", path);
+
+export default downloadAudio;
