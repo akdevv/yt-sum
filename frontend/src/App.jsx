@@ -10,7 +10,7 @@ import SummaryCard from "./components/SummaryCard";
 function App() {
 	const [text, setText] = useState("");
 	const [metadata, setMetadata] = useState("");
-	const [isDarkMode, setIsDarkMode] = useState(false);
+	const [isDarkMode, setIsDarkMode] = useState(true);
 
 	const handleSubmit = async (url) => {
 		try {
@@ -49,12 +49,12 @@ function App() {
 						isDarkMode={isDarkMode}
 						toggleDarkMode={toggleDarkMode}
 					/>
-					<main className="container mx-auto px-4 py-24">
+					<main className="container px-4 py-24 mx-auto">
 						<motion.h1
 							initial={{ opacity: 0, y: -50 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5 }}
-							className="text-5xl md:text-7xl lg:text-8xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 font-dela-gothic-one"
+							className="mb-12 text-5xl font-bold text-center text-transparent md:text-7xl lg:text-8xl bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 font-dela-gothic-one"
 						>
 							AI VIDEO SUMMARIZER
 						</motion.h1>

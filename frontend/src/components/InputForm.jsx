@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { AlertCircle, Send } from "lucide-react";
+import { Send, AlertCircle } from "lucide-react";
 import { isValidURL } from "../helpers/validation";
 
 function InputForm({ onSubmit, isDarkMode }) {
@@ -36,18 +36,31 @@ function InputForm({ onSubmit, isDarkMode }) {
 						isDarkMode
 							? "bg-gray-800 bg-opacity-50"
 							: "bg-white bg-opacity-50"
-					}`}
+					} ${error ? "border-2 border-red-500" : "border-0"}`}
 				/>
 				<motion.button
 					type="submit"
-					className="p-4 rounded-full flex items-center justify-center relative overflow-hidden bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+					className="relative flex items-center justify-center p-4 overflow-hidden rounded-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 				>
 					<Send size={24} className="relative z-10 text-white" />
 				</motion.button>
 			</form>
-			{error && <p style={{ color: "red" }}>{error}</p>}
+			{/* Error message */}
+			{error && (
+				<motion.div
+					initial={{ opacity: 0, y: -20 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -20 }}
+					className="flex items-center mt-2 space-x-2"
+				>
+					<AlertCircle size={20} className="text-red-500" />
+					<span className="text-sm text-red-500 font-poppins">
+						{error}
+					</span>
+				</motion.div>
+			)}
 		</div>
 	);
 }

@@ -86,9 +86,9 @@ export default function App() {
 					toggleDarkMode={toggleDarkMode}
 				/>
 
-				<main className="container mx-auto px-4 py-24">
+				<main className="container px-4 py-24 mx-auto">
 					<motion.h1
-						className="text-5xl md:text-7xl lg:text-8xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+						className="mb-12 text-5xl font-bold text-center text-transparent md:text-7xl lg:text-8xl bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
 						style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
 						initial={{ opacity: 0, y: -50 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -110,63 +110,6 @@ export default function App() {
 		</div>
 	);
 }
-
-import React from "react";
-import { motion } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
-
-const Navbar = ({ isDarkMode, toggleDarkMode }) => {
-	return (
-		<nav className="fixed top-0 left-0 right-0 z-50">
-			<div className="max-w-[90%] md:max-w-[60%] w-full mx-auto px-4 py-2 mt-4 bg-opacity-10 backdrop-blur-sm rounded-full shadow-sm">
-				<div className="flex items-center justify-between">
-					<div className="flex items-center space-x-2">
-						<motion.div
-							className="w-6 h-6 bg-blue-500 rounded-full opacity-50"
-							whileHover={{ scale: 1.1, opacity: 0.8 }}
-							whileTap={{ scale: 0.9 }}
-						></motion.div>
-						<span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-							yt-sum AI
-						</span>
-					</div>
-					<motion.button
-						className="p-1 rounded-full bg-opacity-20 backdrop-blur-md"
-						whileHover={{ scale: 1.1 }}
-						whileTap={{ scale: 0.9 }}
-						onClick={toggleDarkMode}
-					>
-						{isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-					</motion.button>
-				</div>
-			</div>
-		</nav>
-	);
-};
-
-import React from "react";
-
-const Footer = () => {
-	return (
-		<footer className="text-center py-4">
-			<a
-				href="https://github.com/akdevv"
-				target="_blank"
-				rel="noopener noreferrer"
-				className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
-				style={{ fontFamily: "'Fira Mono', monospace" }}
-			>
-				@akdevv
-			</a>
-			<p
-				className="text-sm mt-2"
-				style={{ fontFamily: "Poppins, sans-serif" }}
-			>
-				© 2023 AI Video Sum. All rights reserved.
-			</p>
-		</footer>
-	);
-};
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -194,7 +137,7 @@ const InputForm = ({ inputValue, setInputValue, isDarkMode }) => {
 					whileFocus={{ scale: 1.02 }}
 				/>
 				<motion.button
-					className="p-4 rounded-full flex items-center justify-center relative overflow-hidden"
+					className="relative flex items-center justify-center p-4 overflow-hidden rounded-full"
 					style={{
 						background: `linear-gradient(145deg, ${COLORS.primary}, ${COLORS.secondary})`,
 					}}
@@ -254,7 +197,7 @@ const SummaryCard = ({ isDarkMode }) => {
 				/>
 			</div>
 			<div className="p-6">
-				<h2 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+				<h2 className="mb-4 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
 					AI-Generated Video Summary
 				</h2>
 				<p
@@ -326,5 +269,64 @@ const SummaryCard = ({ isDarkMode }) => {
 				</div>
 			</div>
 		</motion.div>
+	);
+};
+
+// Completed
+
+import React from "react";
+import { motion } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
+
+const Navbar = ({ isDarkMode, toggleDarkMode }) => {
+	return (
+		<nav className="fixed top-0 left-0 right-0 z-50">
+			<div className="max-w-[90%] md:max-w-[60%] w-full mx-auto px-4 py-2 mt-4 bg-opacity-10 backdrop-blur-sm rounded-full shadow-sm">
+				<div className="flex items-center justify-between">
+					<div className="flex items-center space-x-2">
+						<motion.div
+							className="w-6 h-6 bg-blue-500 rounded-full opacity-50"
+							whileHover={{ scale: 1.1, opacity: 0.8 }}
+							whileTap={{ scale: 0.9 }}
+						></motion.div>
+						<span className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+							yt-sum AI
+						</span>
+					</div>
+					<motion.button
+						className="p-1 rounded-full bg-opacity-20 backdrop-blur-md"
+						whileHover={{ scale: 1.1 }}
+						whileTap={{ scale: 0.9 }}
+						onClick={toggleDarkMode}
+					>
+						{isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+					</motion.button>
+				</div>
+			</div>
+		</nav>
+	);
+};
+
+import React from "react";
+
+const Footer = () => {
+	return (
+		<footer className="py-4 text-center">
+			<a
+				href="https://github.com/akdevv"
+				target="_blank"
+				rel="noopener noreferrer"
+				className="text-blue-400 transition-colors duration-300 hover:text-blue-300"
+				style={{ fontFamily: "'Fira Mono', monospace" }}
+			>
+				@akdevv
+			</a>
+			<p
+				className="mt-2 text-sm"
+				style={{ fontFamily: "Poppins, sans-serif" }}
+			>
+				© 2023 AI Video Sum. All rights reserved.
+			</p>
+		</footer>
 	);
 };
