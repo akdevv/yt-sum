@@ -19,26 +19,21 @@ function SummaryCard({ text, metadata, isDarkMode }) {
 		>
 			<div className="aspect-w-16 aspect-h-9">
 				<img
-					src="/placeholder.svg?height=360&width=640"
+					src={metadata.thumbnail}
 					alt="Video thumbnail"
 					className="object-cover w-full h-full"
 				/>
 			</div>
 			<div className="p-6">
 				<h2 className="mb-4 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-					AI-Generated Video Summary
+					{metadata.title}
 				</h2>
 				<p
 					className={`mb-6 ${
 						isDarkMode ? "text-gray-300" : "text-gray-700"
 					}`}
 				>
-					This is an AI-generated summary of the YouTube video. It
-					provides a concise overview of the main points discussed in
-					the video, allowing viewers to quickly grasp the content
-					without watching the entire video. The summary highlights
-					key ideas, important facts, and any conclusions drawn in the
-					video.
+					{text}
 				</p>
 				<div className="flex flex-wrap justify-center gap-4">
 					{btns.map((text, index) => (

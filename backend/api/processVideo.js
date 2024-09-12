@@ -12,19 +12,16 @@ const processVideo = async (req, res) => {
 		const metadata = await getMetadata(url);
 		console.log("Metadata fetched successfully!");
 
-		// // Download audio
-		// await downloadAudio(url, outputPath);
-		// console.log("Video downloaded successfully!");
+		// Download audio
+		await downloadAudio(url, outputPath);
+		console.log("Video downloaded successfully!");
 
-		// // Generate summary
-		// const text = await generateSummary(
-		// 	outputPath,
-		// 	"Generate a summary of this speech."
-		// );
-		// console.log("Summary generated successfully!");
-		// console.log("summary: ", text);
-
-		const text = "This is from backend. Everything's fine!";
+		// Generate summary
+		const text = await generateSummary(
+			outputPath,
+			"Generate a summary of this speech."
+		);
+		console.log("Summary generated successfully!");
 
 		return res.status(200).json({
 			status: 200,
