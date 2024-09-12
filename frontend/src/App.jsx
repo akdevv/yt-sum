@@ -1,23 +1,18 @@
-import "./App.css";
 import axios from "axios";
-import { useState } from "react";
-import { isValidURL } from "./helpers/validation";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import InputForm from "./components/InputForm";
+import SummaryCard from "./components/SummaryCard";
 
 function App() {
-	const [url, setUrl] = useState("");
 	const [text, setText] = useState("");
-	const [error, setError] = useState("");
 	const [metadata, setMetadata] = useState("");
+	const [isDarkMode, setIsDarkMode] = useState(false);
 
-	const handleSubmit = async (evt) => {
-		evt.preventDefault();
-		setError(""); // Reset error before validation
-
-		if (!isValidURL(url)) {
-			setError("Please enter a valid YouTube video URL!");
-			return;
-		}
-
+	const handleSubmit = async (url) => {
 		try {
 			const response = await axios.post(
 				"http://localhost:5000/api/summarize",
@@ -34,27 +29,44 @@ function App() {
 		}
 	};
 
+	const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+
+	useEffect(() => {
+		document.body.classList.toggle("dark", isDarkMode);
+	}, [isDarkMode]);
+
 	return (
 		<>
-			<div>Hello World</div>
-			<form onSubmit={handleSubmit}>
-				<label>URL: </label>
-				<input
-					type="text"
-					name="url"
-					value={url}
-					onChange={(evt) => setUrl(evt.target.value)}
-				/>
-				<button type="submit">Submit</button>
-			</form>
-
-			{/* Show error if URL is invalid */}
-			{error && <p style={{ color: "red" }}>{error}</p>}
-
-			<div>Backend Response:</div>
-			<p>{text}</p>
-			<p>{metadata.title}</p>
-			<img src={metadata.thumbnail} alt="Video Thumbnail" width={300} />
+			<div
+				className={`min-h-screen overflow-hidden font-poppins relative transition-colors duration-300 ${
+					isDarkMode
+						? "bg-gray-900 text-white"
+						: "bg-gray-100 text-gray-900"
+				}`}
+			>
+				<div className="relative z-10">
+					<Navbar
+						isDarkMode={isDarkMode}
+						toggleDarkMode={toggleDarkMode}
+					/>
+					<main className="container mx-auto px-4 py-24">
+						<motion.h1
+							initial={{ opacity: 0, y: -50 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5 }}
+							className="text-5xl md:text-7xl lg:text-8xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 font-dela-gothic-one"
+						>
+							AI VIDEO SUMMARIZER
+						</motion.h1>
+						<InputForm
+							onSubmit={handleSubmit}
+							isDarkMode={isDarkMode}
+						/>
+						<SummaryCard text={text} metadata={metadata} />
+					</main>
+					<Footer />
+				</div>
+			</div>
 		</>
 	);
 }
