@@ -1,6 +1,15 @@
 import youtubedl from "youtube-dl-exec";
 
-const downloadAudio = async (url, outputPath) => {
+export const getMetadata = async (url) => {
+	try {
+		const metadata = await youtubedl(url, { dumpSingleJson: true });
+		return metadata;
+	} catch (err) {
+		console.error("Unable to fetch metadata: ", err.message);
+	}
+};
+
+export const downloadAudio = async (url, outputPath) => {
 	try {
 		await youtubedl(url, {
 			output: outputPath,
@@ -20,9 +29,4 @@ const downloadAudio = async (url, outputPath) => {
 
 // Usage
 // const videoUrl = "https://www.youtube.com/watch?v=OBvZvENxIEg";
-// const outputPath = "./temp/output.mp3";
-
-// const path = await downloadAudio(videoUrl, outputPath);
-// console.log("path: ", path);
-
-export default downloadAudio;
+// const outputPath = `./temp/${Date.now()}.mp3`;
