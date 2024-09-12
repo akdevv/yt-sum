@@ -1,36 +1,33 @@
 import "./App.css";
 import axios from "axios";
 import { useState } from "react";
+import { isValidURL } from "./helpers/validation";
 
 function App() {
 	const [url, setUrl] = useState("");
 	const [text, setText] = useState("");
+	const [error, setError] = useState("");
+	const [metadata, setMetadata] = useState("");
 
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
-		try {
-			// const response = await fetch(
-			// 	"http://localhost:5000/api/summarize",
-			// 	{
-			// 		method: "POST",
-			// 		headers: {
-			// 			"Content-Type": "application/json",
-			// 		},
-			// 		body: JSON.stringify({ url }),
-			// 	}
-			// );
+		setError(""); // Reset error before validation
 
+		if (!isValidURL(url)) {
+			setError("Please enter a valid YouTube video URL!");
+			return;
+		}
+
+		try {
 			const response = await axios.post(
 				"http://localhost:5000/api/summarize",
 				{ url }
 			);
-
 			if (response.status === 200) {
-				console.log("Data successfully submitted!");
-				console.log("response = ", response);
 				setText(response.data.text);
+				setMetadata(response.data.metadata);
 			} else {
-				console.error("Error submitting data");
+				console.error("Error submitting data!");
 			}
 		} catch (err) {
 			console.error("Error:", err);
@@ -50,8 +47,14 @@ function App() {
 				/>
 				<button type="submit">Submit</button>
 			</form>
+
+			{/* Show error if URL is invalid */}
+			{error && <p style={{ color: "red" }}>{error}</p>}
+
 			<div>Backend Response:</div>
 			<p>{text}</p>
+			<p>{metadata.title}</p>
+			<img src={metadata.thumbnail} alt="Video Thumbnail" width={300} />
 		</>
 	);
 }
