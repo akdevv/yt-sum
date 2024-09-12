@@ -62,7 +62,11 @@ function App() {
 							onSubmit={handleSubmit}
 							isDarkMode={isDarkMode}
 						/>
-						<SummaryCard text={text} metadata={metadata} />
+						<SummaryCard
+							text={text}
+							metadata={metadata}
+							isDarkMode={isDarkMode}
+						/>
 					</main>
 					<Footer />
 				</div>

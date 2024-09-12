@@ -113,64 +113,6 @@ export default function App() {
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Send } from "lucide-react";
-
-const COLORS_for_input_form = {
-	primary: "#3B82F6",
-	secondary: "#8B5CF6",
-};
-
-const InputForm = ({ inputValue, setInputValue, isDarkMode }) => {
-	return (
-		<div className="max-w-[90%] md:max-w-[60%] mx-auto mb-12">
-			<div className="flex items-center space-x-4">
-				<motion.input
-					type="text"
-					placeholder="Enter YouTube video URL"
-					className={`flex-grow p-4 rounded-full backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg ${
-						isDarkMode
-							? "bg-gray-800 bg-opacity-50"
-							: "bg-white bg-opacity-50"
-					}`}
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-					whileFocus={{ scale: 1.02 }}
-				/>
-				<motion.button
-					className="relative flex items-center justify-center p-4 overflow-hidden rounded-full"
-					style={{
-						background: `linear-gradient(145deg, ${COLORS.primary}, ${COLORS.secondary})`,
-					}}
-					whileHover={{
-						scale: 1.05,
-						boxShadow: `0 0 20px ${COLORS.primary}80`,
-					}}
-					whileTap={{ scale: 0.95 }}
-				>
-					<motion.div
-						className="absolute inset-0 backdrop-blur-3xl"
-						animate={{
-							background: [
-								`radial-gradient(circle, ${COLORS.primary}40 0%, transparent 70%)`,
-								`radial-gradient(circle, ${COLORS.secondary}40 0%, transparent 70%)`,
-								`radial-gradient(circle, ${COLORS.primary}40 0%, transparent 70%)`,
-							],
-						}}
-						transition={{
-							repeat: Infinity,
-							duration: 3,
-							ease: "linear",
-						}}
-					/>
-					<Send size={24} className="relative z-10 text-white" />
-				</motion.button>
-			</div>
-		</div>
-	);
-};
-
-import React from "react";
-import { motion } from "framer-motion";
 import { RefreshCw, Clipboard, FileDown } from "lucide-react";
 
 const COLORS = {
@@ -328,5 +270,63 @@ const Footer = () => {
 				© 2023 AI Video Sum. All rights reserved.
 			</p>
 		</footer>
+	);
+};
+
+import React from "react";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react";
+
+const COLORS_for_input_form = {
+	primary: "#3B82F6",
+	secondary: "#8B5CF6",
+};
+
+const InputForm = ({ inputValue, setInputValue, isDarkMode }) => {
+	return (
+		<div className="max-w-[90%] md:max-w-[60%] mx-auto mb-12">
+			<div className="flex items-center space-x-4">
+				<motion.input
+					type="text"
+					placeholder="Enter YouTube video URL"
+					className={`flex-grow p-4 rounded-full backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg ${
+						isDarkMode
+							? "bg-gray-800 bg-opacity-50"
+							: "bg-white bg-opacity-50"
+					}`}
+					value={inputValue}
+					onChange={(e) => setInputValue(e.target.value)}
+					whileFocus={{ scale: 1.02 }}
+				/>
+				<motion.button
+					className="relative flex items-center justify-center p-4 overflow-hidden rounded-full"
+					style={{
+						background: `linear-gradient(145deg, ${COLORS.primary}, ${COLORS.secondary})`,
+					}}
+					whileHover={{
+						scale: 1.05,
+						boxShadow: `0 0 20px ${COLORS.primary}80`,
+					}}
+					whileTap={{ scale: 0.95 }}
+				>
+					<motion.div
+						className="absolute inset-0 backdrop-blur-3xl"
+						animate={{
+							background: [
+								`radial-gradient(circle, ${COLORS.primary}40 0%, transparent 70%)`,
+								`radial-gradient(circle, ${COLORS.secondary}40 0%, transparent 70%)`,
+								`radial-gradient(circle, ${COLORS.primary}40 0%, transparent 70%)`,
+							],
+						}}
+						transition={{
+							repeat: Infinity,
+							duration: 3,
+							ease: "linear",
+						}}
+					/>
+					<Send size={24} className="relative z-10 text-white" />
+				</motion.button>
+			</div>
+		</div>
 	);
 };

@@ -36,7 +36,11 @@ function InputForm({ onSubmit, isDarkMode }) {
 						isDarkMode
 							? "bg-gray-800 bg-opacity-50"
 							: "bg-white bg-opacity-50"
-					} ${error ? "border-2 border-red-500" : "border-0"}`}
+					} ${
+						error
+							? "border-2 border-red-500 focus:ring-0"
+							: "border-0"
+					}`}
 				/>
 				<motion.button
 					type="submit"
