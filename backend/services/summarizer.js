@@ -26,7 +26,6 @@ const deleteFiles = async () => {
 };
 
 const generateSummary = async (filePath, prompt) => {
-	console.log("api google key: ".process.env.GOOGLE_API_KEY);
 	// Upload the file
 	const fileManager = new GoogleAIFileManager(process.env.GOOGLE_API_KEY);
 	const audioFile = await fileManager.uploadFile(filePath, {
