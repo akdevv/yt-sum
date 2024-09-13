@@ -18,7 +18,7 @@ function App() {
 		try {
 			setIsLoading(true);
 			const response = await axios.post(
-				"http://localhost:5000/api/summarize",
+				`${import.meta.env.VITE_BACKEND_URL}/api/summarize`,
 				{ url }
 			);
 			if (response.status === 200) {
