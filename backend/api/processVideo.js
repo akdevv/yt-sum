@@ -1,3 +1,4 @@
+import fs from "fs/promises";
 import generateSummary from "../services/summarizer.js";
 import { downloadAudio, getMetadata } from "../services/video.js";
 
@@ -6,7 +7,7 @@ const processVideo = async (req, res) => {
 
 	try {
 		const { url } = req.body;
-		const outputPath = "./temp/output.mp3";
+		const outputPath = `./temp/${Date.now()}.mp3`;
 
 		// Get metadata
 		const metadata = await getMetadata(url);
@@ -22,6 +23,10 @@ const processVideo = async (req, res) => {
 			"Generate a summary of this speech."
 		);
 		console.log("Summary generated successfully!");
+
+		// Delete the file
+		await fs.unlink(outputPath);
+		console.log("Temporary audio file deleted successfully!");
 
 		return res.status(200).json({
 			status: 200,

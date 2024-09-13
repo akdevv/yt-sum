@@ -32,15 +32,15 @@ function InputForm({ onSubmit, isDarkMode }) {
 					whileFocus={{ scale: 1.02 }}
 					placeholder="Enter YouTube video URL"
 					onChange={(evt) => setUrl(evt.target.value)}
-					className={`flex-grow p-4 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-full backdrop-blur-md shadow-sm text-lg ${
+					className={`flex-grow p-4 focus:outline-none ${
+						error
+							? "focus:ring-0"
+							: "focus:ring-2 focus:ring-blue-400"
+					} rounded-full backdrop-blur-md shadow-sm text-lg ${
 						isDarkMode
 							? "bg-gray-800 bg-opacity-50"
 							: "bg-white bg-opacity-50"
-					} ${
-						error
-							? "border-2 border-red-500 focus:ring-0"
-							: "border-0"
-					}`}
+					} ${error ? "border-2 border-red-500" : "border-0"}`}
 				/>
 				<motion.button
 					type="submit"

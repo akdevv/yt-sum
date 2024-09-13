@@ -4,16 +4,19 @@ import { useState, useEffect } from "react";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Loading from "./components/Loading";
 import InputForm from "./components/InputForm";
 import SummaryCard from "./components/SummaryCard";
 
 function App() {
 	const [text, setText] = useState("");
 	const [metadata, setMetadata] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 	const [isDarkMode, setIsDarkMode] = useState(true);
 
 	const handleSubmit = async (url) => {
 		try {
+			setIsLoading(true);
 			const response = await axios.post(
 				"http://localhost:5000/api/summarize",
 				{ url }
@@ -26,6 +29,8 @@ function App() {
 			}
 		} catch (err) {
 			console.error("Error:", err);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -87,6 +92,10 @@ function App() {
 							onSubmit={handleSubmit}
 							isDarkMode={isDarkMode}
 						/>
+
+						{/* Loading component */}
+						{isLoading && <Loading isDarkMode={isDarkMode} />}
+
 						{text && (
 							<SummaryCard
 								text={text}
