@@ -1,11 +1,19 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { RefreshCw, Clipboard, FileDown } from "lucide-react";
 
-const btns = ["Regenerate", "Copy", "Save PDF"];
+import SaveBtn from "./SaveBtn";
+import CopyBtn from "./CopyBtn";
+import RegenerateBtn from "./RegenerateBtn";
 
-function SummaryCard({ text, metadata, isDarkMode }) {
-	console.log(text);
-	console.log(metadata);
+function SummaryCard({ initialText, initialMetadata, isDarkMode }) {
+	const [text, setText] = useState(initialText);
+	const [metadata, setMetadata] = useState(initialMetadata);
+
+	const handleRegenerate = (newText, newMetadata) => {
+		setText(newText);
+		setMetadata(newMetadata);
+	};
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 50 }}
@@ -36,48 +44,17 @@ function SummaryCard({ text, metadata, isDarkMode }) {
 					{text}
 				</p>
 				<div className="flex flex-wrap justify-center gap-4">
-					{btns.map((text, index) => (
-						<motion.button
-							key={text}
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							className={`flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-md border-2 ${
-								isDarkMode
-									? "bg-gray-700 bg-opacity-50 border-white/10"
-									: "bg-gray-200 bg-opacity-50 border-black/10"
-							}`}
-						>
-							<motion.div
-								className="absolute inset-0 rounded-full"
-								initial={{ opacity: 0 }}
-								whileHover={{
-									opacity: 1,
-									transition: { duration: 0.3 },
-								}}
-								style={{
-									background: isDarkMode
-										? "rgba(255,255,255,0.1)"
-										: "rgba(0,0,0,0.05)",
-								}}
-							/>
-							{index === 0 && (
-								<RefreshCw
-									size={20}
-									className="relative z-10"
-								/>
-							)}
-							{index === 1 && (
-								<Clipboard
-									size={20}
-									className="relative z-10"
-								/>
-							)}
-							{index === 2 && (
-								<FileDown size={20} className="relative z-10" />
-							)}
-							<span className="relative z-10">{text}</span>
-						</motion.button>
-					))}
+					<RegenerateBtn
+						url={metadata.original_url}
+						isDarkMode={isDarkMode}
+						onRegenerate={handleRegenerate}
+					/>
+					<CopyBtn text={text} isDarkMode={isDarkMode} />
+					<SaveBtn
+						text={text}
+						metadata={metadata}
+						isDarkMode={isDarkMode}
+					/>
 				</div>
 			</div>
 		</motion.div>

@@ -18,7 +18,7 @@ function App() {
 		try {
 			setIsLoading(true);
 			const response = await axios.post(
-				`${import.meta.env.VITE_BACKEND_URL}/api/summarize`,
+				"http://localhost:5000/api/summarize",
 				{ url }
 			);
 			if (response.status === 200) {
@@ -98,8 +98,9 @@ function App() {
 
 						{text && (
 							<SummaryCard
-								text={text}
-								metadata={metadata}
+								initialText={text}
+								initialMetadata={metadata}
+								onSubmit={handleSubmit}
 								isDarkMode={isDarkMode}
 							/>
 						)}
